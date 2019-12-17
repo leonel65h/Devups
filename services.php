@@ -5,19 +5,28 @@ $_start = microtime(true);
 
 require __DIR__ . '/header.php';
 
+use devups\ModulePaiement\Controller\AfrikpayController;
 use Genesis as g;
 use Request as R;
+use devups\ModulePaiement\Controller\MonetbilController;
+
 
 header("Access-Control-Allow-Origin: *");
 
-$productCtrl = new ProductController();
+$transaction = new Dvups_transactionController();
 
 (new Request('hello'));
 
 switch (Request::get('path')) {
 
-    case 'product.list':
-        g::json_encode($productCtrl->listdata());
+    case 'add.reference':
+        g::json_encode(MonetbilController::reference());
+        break;
+    case 'add.referenceAfrikpay':
+        g::json_encode(AfrikpayController::reference());
+        break;
+    case 'send.payment':
+        g::json_encode($transaction->paiement());
         break;
 
     default :

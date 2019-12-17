@@ -312,16 +312,16 @@ class BackendGenerator {
         fputs($fichier, "\n}\n");
 
         fclose($fichier);
-        
-        
+
+
         if(isset($manytomany)){
             $entitycollection = (object) $manytomany;
             $entitycollection->relation[0] = (object) $entitycollection->relation[0];
             $entitycollection->relation[1] = (object) $entitycollection->relation[1];
-            
+
             $this->entityGenerator($entitycollection);
         }
-        
+
     }
 
     /* 	CREATION DU CONTROLLER 	 */
@@ -350,7 +350,7 @@ class " . ucfirst($name) . "Controller extends Controller{
         $" . "this->renderListView(" . ucfirst($name) . "Table::init($" . "lazyloading)->buildindextable()->render());
 
     }
-
+ 
     public function datatable($" . "next, $" . "per_page) {
         $" . "lazyloading = $" . "this->lazyloading(new " . ucfirst($name) . "(), $" . "next, $" . "per_page);
         return ['success' => true,
@@ -367,7 +367,7 @@ class " . ucfirst($name) . "Controller extends Controller{
         $mtmedit = [];
         $iter = 0;
         if (!empty($entity->relation)) {
-            //relation sera l'entité 
+            //relation sera l'entité
             foreach ($entity->relation as $relation) {
 
                 if ($relation->cardinality == "oneToOne") {

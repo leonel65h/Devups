@@ -1,0 +1,346 @@
+{
+  "id": 1,
+  "name": "ModulePaiement",
+  "project": "devups",
+  "nbent": 2,
+  "listentity": [
+    {
+      "id": 1,
+      "name": "dvups_transaction",
+      "module": {
+        "id": 1
+      },
+      "ref": null,
+      "attribut": [
+        {
+          "name": "id",
+          "designation": "",
+          "visibility": "",
+          "datatype": "integer",
+          "size": "",
+          "nullable": "not",
+          "formtype": "",
+          "comment": ""
+        },
+        {
+          "name": "heure",
+          "designation": "",
+          "visibility": "",
+          "datatype": "datetime",
+          "size": "",
+          "nullable": "not",
+          "formtype": "",
+          "comment": ""
+        },
+        {
+          "name": "montant",
+          "designation": "",
+          "visibility": "",
+          "datatype": "float",
+          "size": "",
+          "nullable": "not",
+          "formtype": "",
+          "comment": ""
+        }
+      ],
+      "relation": [
+        {
+          "entity": "dvups_agregateur",
+          "cardinality": "manyToOne",
+          "nullable": "not",
+          "ondelete": "cascade",
+          "onupdate": "cascade"
+        }
+      ],
+      "apidoc": [
+        {
+          "name": "Create transaction",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"transaction\":{\"id\":\"\",\"heure\":\"\",\"montant\":\"\"}}"
+            },
+            "url": {
+              "raw": "http:\/\/127.0.0.1\/test2\/api\/transaction.create",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "path": [
+                "test2",
+                "api",
+                "transaction.create"
+              ]
+            },
+            "description": "Create transaction"
+          },
+          "response": []
+        },
+        {
+          "name": "Get transaction",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http:\/\/127.0.0.1\/test2\/api\/transaction.detail?id=",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "path": [
+                "test2",
+                "api",
+                "transaction.detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get transaction"
+          },
+          "response": []
+        },
+        {
+          "name": "Update transaction",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"transaction\":{\"id\":\"\",\"heure\":\"\",\"montant\":\"\"}}"
+            },
+            "url": {
+              "raw": "http:\/\/127.0.0.1\/test2\/api\/transaction.update?id=",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "path": [
+                "test2",
+                "api",
+                "transaction.update"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Update transaction"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete transaction",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http:\/\/127.0.0.1\/test2\/api\/transaction.delete?id=",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "path": [
+                "test2",
+                "api",
+                "transaction.delete"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Delete transaction"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "dvups_agregateur",
+      "module": {
+        "id": 1
+      },
+      "ref": null,
+      "attribut": [
+        {
+          "name": "id",
+          "designation": "",
+          "visibility": "",
+          "datatype": "integer",
+          "size": "",
+          "nullable": "not",
+          "formtype": "",
+          "comment": ""
+        },
+        {
+          "name": "nom",
+          "designation": "",
+          "visibility": "",
+          "datatype": "string",
+          "size": "255",
+          "nullable": "not",
+          "formtype": "",
+          "comment": ""
+        },
+        {
+          "name": "reference",
+          "designation": "",
+          "visibility": "",
+          "datatype": "string",
+          "size": "255",
+          "nullable": "not",
+          "formtype": "",
+          "comment": ""
+        }
+      ],
+      "relation": [],
+      "apidoc": [
+        {
+          "name": "Create agregateur",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"agregateur\":{\"id\":\"\",\"nom\":\"\",\"reference\":\"\",\"cle\":\"\",\"transaction.id\":\"\"}}"
+            },
+            "url": {
+              "raw": "http:\/\/127.0.0.1\/test2\/api\/agregateur.create",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "path": [
+                "test2",
+                "api",
+                "agregateur.create"
+              ]
+            },
+            "description": "Create agregateur"
+          },
+          "response": []
+        },
+        {
+          "name": "Get agregateur",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http:\/\/127.0.0.1\/test2\/api\/agregateur.detail?id=",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "path": [
+                "test2",
+                "api",
+                "agregateur.detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get agregateur"
+          },
+          "response": []
+        },
+        {
+          "name": "Update agregateur",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"agregateur\":{\"id\":\"\",\"nom\":\"\",\"reference\":\"\",\"cle\":\"\",\"transaction.id\":\"\"}}"
+            },
+            "url": {
+              "raw": "http:\/\/127.0.0.1\/test2\/api\/agregateur.update?id=",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "path": [
+                "test2",
+                "api",
+                "agregateur.update"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Update agregateur"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete agregateur",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http:\/\/127.0.0.1\/test2\/api\/agregateur.delete?id=",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "path": [
+                "test2",
+                "api",
+                "agregateur.delete"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Delete agregateur"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
