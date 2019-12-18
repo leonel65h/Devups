@@ -72,8 +72,63 @@ public static $logo;
         return $this->return_url;
     }
 
+
+    public static function GenerationCle($Texte,$CleDEncryptage)
+    {
+        $CleDEncryptage = md5($CleDEncryptage);
+        $Compteur=0;
+        $VariableTemp = "";
+        for ($Ctr=0;$Ctr<strlen($Texte);$Ctr++)
+        {
+            if ($Compteur==strlen($CleDEncryptage))
+                $Compteur=0;
+            $VariableTemp.= substr($Texte,$Ctr,1) ^ substr($CleDEncryptage,$Compteur,1);
+            $Compteur++;
+        }
+        return[
+            'a'=>$VariableTemp
+        ];
+    }
+
+    public static function Crypte($Texte,$Cle)
+    {
+        srand((double)microtime()*1000000);
+        $CleDEncryptage = md5(rand(0,32000) );
+        $Compteur=0;
+        $VariableTemp = "";
+        for ($Ctr=0;$Ctr<strlen($Texte);$Ctr++)
+        {
+            if ($Compteur==strlen($CleDEncryptage))
+                $Compteur=0;
+            $VariableTemp.= substr($CleDEncryptage,$Compteur,1).(substr($Texte,$Ctr,1) ^ substr($CleDEncryptage,$Compteur,1) );
+            $Compteur++;
+        }
+        $val=self::GenerationCle($VariableTemp,$Cle);
+        return[
+            'b'=>base64_encode($val['a'])
+        ];
+    }
+
+    public static function Decrypte($Texte,$Cle)
+    {
+        $Texte = self::GenerationCle(base64_decode($Texte),$Cle);
+        $Texte=$Texte['a'];
+        $VariableTemp = "";
+        for ($Ctr=0;$Ctr<strlen($Texte);$Ctr++)
+        {
+            $md5 = substr($Texte,$Ctr,1);
+            $Ctr++;
+            $VariableTemp.= (substr($Texte,$Ctr,1) ^ $md5);
+        }
+        return[
+            'c'=>$VariableTemp
+        ];
+    }
+
+
     public static function reference(){
-        \Dvups_agregateur::update(array('reference'=>\Request::post('reference')))->where('nom','=',\Request::post('agregateur'))->exec();
+        $agregateur=self::Crypte(\Request::post('reference'),'dv_administrateur');
+        \Dvups_agregateur::update(array('reference'=>$agregateur['b']))->where('nom','=',\Request::post('agregateur'))->exec();
         \Response::set("reference",\Request::post('reference'));
         \Response::set("agregateur",\Request::post('agregateur'));
         return \Response::$data;
@@ -125,9 +180,10 @@ public static $logo;
     {
         $qb = \Dvups_agregateur::select()->where("nom",'=','monetbil')->__getOne();
         $c=$qb->getReference();
+        $cle=self::Decrypte($c,'dv_administrateur');
         $querydata=self::mergeArguments($monetbil_args);
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://www.monetbil.com/widget/v2.1/' .$c);
+        curl_setopt($ch, CURLOPT_URL, 'https://www.monetbil.com/widget/v2.1/' .$cle['c']);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
